@@ -1,0 +1,24 @@
+{
+  "name": "@dexly/xlast",
+  "version": "7.0.0",
+  "description": "Automatizador de releases Git creado por Roger Salinas para Dexly Studios.",
+  "private": true,
+  "bin": {
+    "xlast": "./bin/xlast.js"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "README.md",
+    "xrelease.example.json",
+    "*.cmd"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "author": "Roger Salinas - Dexly Studios",
+  "license": "UNLICENSED"
+}
