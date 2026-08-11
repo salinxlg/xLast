@@ -3,21 +3,21 @@
   "product": "xLast",
   "author": "Roger Salinas",
   "vendor": "Dexly Studios",
-  "version": "7.0.0",
-  "releaseCount": 1,
+  "version": "7.0.1",
+  "releaseCount": 2,
   "lastType": "patch",
   "locked": false,
   "build": {
     "date": "2026-08-11",
-    "sequence": 1,
-    "id": "X-2026081101"
+    "sequence": 2,
+    "id": "X-2026081102"
   },
   "lastRelease": {
-    "version": "7.0.0",
+    "version": "7.0.1",
     "type": "patch",
     "date": "2026-08-11",
-    "build": "X-2026081101",
-    "message": "Release 2026-08-11 • Build: X-2026081101 • v7.0.0",
-    "createdAt": "2026-08-11T19:52:51.001Z"
+    "build": "X-2026081102",
+    "message": "Release 2026-08-11 • Build: X-2026081102 • v7.0.1",
+    "createdAt": "2026-08-11T20:03:32.166Z"
   }
 }

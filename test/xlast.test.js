@@ -34,7 +34,7 @@ test('incrementa versiones semánticas desde la serie 7', () => {
 });
 
 test('el primer release siempre se publica como 7.0.0', () => {
-  const date = new Date('2026-08-11T12:00:00.000Z');
+  const date = new Date(2026, 7, 11, 12, 0, 0);
   const release = prepareRelease(createReleaseManifest(), 'minor', date);
   assert.equal(release.initial, true);
   assert.equal(release.version, BASE_VERSION);
@@ -52,14 +52,14 @@ test('el build aumenta durante el día y reinicia su secuencia al día siguiente
   manifest.version = '7.0.0';
   manifest.build = { date: '2026-08-11', sequence: 9, id: 'X-2026081109' };
 
-  const sameDay = prepareRelease(manifest, 'patch', new Date('2026-08-11T18:00:00.000Z'));
+  const sameDay = prepareRelease(manifest, 'patch', new Date(2026, 7, 11, 18, 0, 0));
   assert.equal(sameDay.version, '7.0.1');
   assert.equal(sameDay.build, 'X-2026081110');
 
   const nextDay = prepareRelease(
     sameDay.manifest,
     'minor',
-    new Date('2026-08-12T18:00:00.000Z')
+    new Date(2026, 7, 12, 18, 0, 0)
   );
   assert.equal(nextDay.version, '7.1.0');
   assert.equal(nextDay.build, 'X-2026081201');
@@ -97,7 +97,7 @@ test('la versión y la ayuda funcionan fuera de un repositorio', () => {
   const version = spawnSync(process.execPath, [executable, '--version'], { encoding: 'utf8' });
   const help = spawnSync(process.execPath, [executable, '--help'], { encoding: 'utf8' });
   assert.equal(version.status, 0);
-  assert.match(version.stdout, /^xlast 7\.0\.0/u);
+  assert.match(version.stdout, /^xlast 7\.0\.1/u);
   assert.equal(help.status, 0);
   assert.match(help.stdout, /xlast mn/u);
   assert.match(help.stdout, /X-YYYYMMDDNN/u);

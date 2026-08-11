@@ -1,7 +1,7 @@
 @echo off
 setlocal EnableExtensions
 chcp 65001 >nul 2>&1
-title xLast 7.0.0 - Instalador
+title xLast 7.0.1 - Instalador
 
 where.exe node.exe >nul 2>&1 || goto :NODE_MISSING
 

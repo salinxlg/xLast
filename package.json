@@ -1,6 +1,6 @@
 {
   "name": "@dexly/xlast",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "Automatizador de releases Git creado por Roger Salinas para Dexly Studios.",
   "private": true,
   "bin": {

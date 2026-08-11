@@ -11,9 +11,11 @@ const {
   createActivity,
   createPainter,
   printBrand,
-  printChoice,
   printInfo,
+  printMenuActions,
+  printMenuPanel,
   printResultCard,
+  printSection,
   printStep,
   supportsAnimation,
   supportsColor
@@ -643,7 +645,7 @@ async function runReset(config, painter) {
   return 0;
 }
 
-async function askMenu(painter, manifest) {
+async function askMenu(painter, manifest, repositoryRoot) {
   if (!process.stdin.isTTY) {
     throw new XLastError('El selector necesita una terminal interactiva. Usa xlast p, xlast mn o xlast mj.');
   }
@@ -652,20 +654,61 @@ async function askMenu(painter, manifest) {
     minor: prepareRelease(manifest, 'minor').version,
     major: prepareRelease(manifest, 'major').version
   };
-  printBrand(painter, packageInfo.version, 'Selecciona tu próximo release.');
-  printChoice(painter, '1', 'Patch', `v${previews.patch}`);
-  printChoice(painter, '2', 'Minor', `v${previews.minor}`);
-  printChoice(painter, '3', 'Major', `v${previews.major}`);
-  if (manifest.lastType) printChoice(painter, 'L', 'Lock', `repetir ${manifest.lastType}`);
-  printChoice(painter, 'R', 'Reset', `volver a v${BASE_VERSION}`);
-  printChoice(painter, '0', 'Cancelar', 'no modificar nada');
+  const actions = [];
+  if (manifest.lastType) {
+    const lastType = manifest.lastType[0].toUpperCase() + manifest.lastType.slice(1);
+    actions.push({ key: 'L', label: `Fijar ${lastType}` });
+  }
+  actions.push({ key: 'R', label: 'Reiniciar' }, { key: '0', label: 'Cancelar' });
+
+  printBrand(painter, packageInfo.version);
+  printSection(painter, 'Proyecto');
+  printInfo(painter, 'NOMBRE', path.basename(repositoryRoot));
+  printInfo(
+    painter,
+    'ESTADO',
+    manifest.releaseCount === 0
+      ? `Nuevo · inicia en ${painter.accent(`v${BASE_VERSION}`)}`
+      : `${painter.accent(`v${manifest.version}`)} · ${manifest.releaseCount} releases`
+  );
+  printInfo(painter, 'ÚLTIMO BUILD', manifest.build.id || 'Aún no existe');
+  console.log('');
+  printSection(painter, 'Próximo release');
+  printMenuPanel(painter, [
+    {
+      key: '1',
+      title: 'Patch',
+      value: `v${previews.patch}`,
+      description: 'Correcciones y ajustes'
+    },
+    {
+      key: '2',
+      title: 'Minor',
+      value: `v${previews.minor}`,
+      description: 'Funciones compatibles'
+    },
+    {
+      key: '3',
+      title: 'Major',
+      value: `v${previews.major}`,
+      description: 'Cambios estructurales'
+    }
+  ]);
+  if (manifest.releaseCount === 0) {
+    console.log(`  ${painter.dim(`El primer release siempre parte de v${BASE_VERSION}.`)}`);
+  }
+  console.log('');
+  printSection(painter, 'Acciones');
+  printMenuActions(painter, actions);
   console.log('');
 
   const interfaceInstance = readline.createInterface({ input: process.stdin, output: process.stdout });
   try {
     while (true) {
       const answer = (
-        await interfaceInstance.question(`  ${painter.bold('Operación')} ${painter.accent('›')} `)
+        await interfaceInstance.question(
+          `  ${painter.bold('Selecciona una opción')} ${painter.accent('›')} `
+        )
       ).trim().toLowerCase();
       if (answer === '1' || answer === 'p' || answer === 'patch') return { action: 'release', type: 'patch' };
       if (answer === '2' || answer === 'mn' || answer === 'minor') return { action: 'release', type: 'minor' };
@@ -772,7 +815,7 @@ async function runMenu(config, painter) {
   if (loaded.manifest.locked && loaded.manifest.lastType) {
     return runRelease(config, painter, loaded.manifest.lastType);
   }
-  const selection = await askMenu(painter, loaded.manifest);
+  const selection = await askMenu(painter, loaded.manifest, repositoryRoot);
   if (selection.action === 'release') return runRelease(config, painter, selection.type);
   if (selection.action === 'lock') return runLock(painter);
   if (selection.action === 'reset') return runReset(config, painter);

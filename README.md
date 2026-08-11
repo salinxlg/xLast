@@ -1,19 +1,18 @@
 <div align="center">
 
+<img src="https://cdn-icons-png.flaticon.com/512/3904/3904299.png" alt="xLast" width="112">
+
+<br>
+
 # xLast
 
 ### Releases consistentes, sin pasos repetitivos.
 
 Automatiza el versionado, el build, el commit y la publicación de tus proyectos.
 
-<br>
+<sub>v7.0.1 · Node.js 18+ · Windows 10/11</sub>
 
-![Version](https://img.shields.io/badge/version-7.0.0-dc6cff?style=for-the-badge)
-![Node](https://img.shields.io/badge/Node.js-18%2B-79dc8c?style=for-the-badge)
-![Windows](https://img.shields.io/badge/Windows-10%20%7C%2011-74c7ec?style=for-the-badge)
-![Dexly Studios](https://img.shields.io/badge/Dexly-Studios-f5c2e7?style=for-the-badge)
-
-<br>
+<br><br>
 
 **Creado por [Roger Salinas](https://github.com/salinxlg) para Dexly Studios.**
 
@@ -311,7 +310,7 @@ La simulación muestra versión, build, mensaje y comandos previstos.
 | `--no-color` | Desactiva colores. |
 | `--doctor` | Revisa Node.js, Git, identidad y remoto. |
 | `--developer` | Muestra Roger Salinas y Dexly Studios. |
-| `--version`, `-v` | Muestra `xlast 7.0.0`. |
+| `--version`, `-v` | Muestra `xlast 7.0.1`. |
 | `--help`, `-h` | Abre la ayuda. |
 
 <br><br>
@@ -377,7 +376,7 @@ Los archivos `xrelease.json` de tus proyectos no se eliminan.
 ## Información del proyecto
 
 - Producto: xLast.
-- Versión: `7.0.0`.
+- Versión: `7.0.1`.
 - Autor y desarrollador: Roger Salinas.
 - Estudio: Dexly Studios.
 - Lema: `Build without limits`.
