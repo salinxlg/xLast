@@ -11,7 +11,8 @@
     "lib",
     "README.md",
     "xrelease.example.json",
-    "*.cmd"
+    "*.cmd",
+    "*.sh"
   ],
   "scripts": {
     "test": "node --test"

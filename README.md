@@ -10,7 +10,7 @@
 
 Automatiza el versionado, el build, el commit y la publicación de tus proyectos.
 
-<sub>v7.0.1 · Node.js 18+ · Windows 10/11</sub>
+<sub>v7.0.1 · Node.js 18+ · Windows 10/11 y macOS</sub>
 
 <br><br>
 
@@ -49,7 +49,7 @@ https://github.com/usuario/repositorio/commit/commit-id
 
 ### Requisitos
 
-- Windows 10 u 11.
+- Windows 10/11 o macOS.
 - Node.js 18 o superior.
 - npm.
 - Git.
@@ -58,13 +58,25 @@ https://github.com/usuario/repositorio/commit/commit-id
 
 ### Instalar
 
-Extrae el ZIP y ejecuta:
+Extrae el ZIP. En Windows ejecuta `install.cmd`. En macOS abre Terminal dentro de la carpeta `xLast-main` y ejecuta:
 
-```text
-install.cmd
+```sh
+sh install.sh
 ```
 
-El instalador registra `xlast` como comando global. Después puedes abrir una terminal nueva y verificarlo:
+Si npm indica `EACCES` al escribir en `/usr/local`, configura un directorio global de npm para tu usuario y repite la instalación:
+
+```sh
+mkdir -p "$HOME/.npm-global"
+npm config set prefix "$HOME/.npm-global"
+echo 'export PATH="$HOME/.npm-global/bin:$PATH"' >> "$HOME/.zprofile"
+export PATH="$HOME/.npm-global/bin:$PATH"
+sh install.sh
+```
+
+La instalación empaqueta una copia independiente. Tras verificar `xlast --version`, puedes borrar el ZIP y la carpeta extraída. Si usaste `sudo` con otros paquetes, su instalación sigue independiente.
+
+El instalador registra `xlast` como comando global. Abre una terminal nueva y verifica la versión; ejecuta el diagnóstico dentro de un repositorio Git:
 
 ```powershell
 xlast --version
@@ -72,6 +84,8 @@ xlast --doctor
 ```
 
 <br><br>
+
+Para instalar manualmente sin depender de la carpeta extraída, usa `npm pack` y luego `npm install -g ./dexly-xlast-7.0.1.tgz`. `npm install -g .` puede dejar un enlace a esa carpeta.
 
 ## Inicio rápido
 
@@ -359,9 +373,7 @@ xLast comprueba:
 
 Ejecuta:
 
-```text
-uninstall.cmd
-```
+En Windows: `uninstall.cmd`. En macOS: `sh uninstall.sh`. Si instalaste con `sudo sh install.sh`, desinstala con `sudo sh uninstall.sh`.
 
 O utiliza npm:
 
@@ -369,7 +381,7 @@ O utiliza npm:
 npm uninstall -g @dexly/xlast
 ```
 
-Los archivos `xrelease.json` de tus proyectos no se eliminan.
+Los archivos `xrelease.json` de tus proyectos no se eliminan. Para ejecutar xLast sin instalarlo, desde cualquier proyecto usa `sh /ruta/a/xLast-main/xlast.sh --doctor` (o un comando de release). Después de instalarlo globalmente y verificar `xlast --version`, puedes borrar el ZIP y la carpeta extraída.
 
 <br><br>
 
